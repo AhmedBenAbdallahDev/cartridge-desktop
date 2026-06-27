@@ -80,7 +80,7 @@
 * { box-sizing: border-box; }
 
 html, body, #root {
-  width: 100%; height: 100%;
+  width: 100%; height: 100dvh;
   margin: 0; padding: 0;
   overflow: hidden;
   background: #050505;
@@ -89,6 +89,9 @@ html, body, #root {
   letter-spacing: 0.03cqw;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 button {
@@ -104,20 +107,21 @@ button:focus-visible {
 button:active { transform: translateY(0.18cqh); }
 
 /* =============================================================
-   APP SHELL — 16:9 viewport lock
+   APP SHELL — adaptive viewport (fills any screen)
    ============================================================= */
 .app-shell {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: grid;
   place-items: center;
   background: #050505;
   overflow: hidden;
+  touch-action: none;
 }
 .screen {
   position: relative;
-  width: min(100vw, calc(100vh * 16 / 9));
-  height: min(100vh, calc(100vw * 9 / 16));
+  width: 100vw;
+  height: 100dvh;
   background: var(--paper);
   overflow: hidden;
   container-type: size;
@@ -127,11 +131,19 @@ button:active { transform: translateY(0.18cqh); }
     inset 0 0 0 0.1cqw rgba(0,0,0,0.15),
     inset 0 0 8cqw rgba(0,0,0,0.25);
 }
-@media (max-aspect-ratio: 16/9) {
-  .screen { width: 100vw; height: calc(100vw * 9/16); }
-}
+/* Landscape-oriented screens: keep the 16:9 box with letterboxing */
 @media (min-aspect-ratio: 16/9) {
-  .screen { height: 100vh; width: calc(100vh * 16/9); }
+  .screen {
+    width: 100dvw;
+    height: calc(100dvw * 9 / 16);
+  }
+}
+/* Portrait / narrow screens: fill width, use available height */
+@media (max-aspect-ratio: 9/16) {
+  .screen {
+    width: 100dvw;
+    height: 100dvh;
+  }
 }
 
 /* wallpaper: Nintendo eggshell dot grid */

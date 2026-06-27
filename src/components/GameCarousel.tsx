@@ -1,3 +1,4 @@
+import { useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Platform, Game } from '../types';
 import { N64Cartridge } from './cartridges/N64Cartridge';
@@ -26,6 +27,32 @@ export function GameCarousel({
 }: GameCarouselProps) {
   const games = platform.games;
   const len = games.length;
+
+  // Touch / swipe support for handheld devices
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  }, []);
+
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStart.current) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStart.current.x;
+    const dy = t.clientY - touchStart.current.y;
+    touchStart.current = null;
+
+    // Horizontal swipe: switch game (must be more horizontal than vertical)
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx > 0) onPrev();
+      else onNext();
+    }
+    // Tap (very small movement): launch
+    else if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+      onSelect();
+    }
+  }, [onPrev, onNext, onSelect]);
 
   const renderCart = (game: Game) => {
     switch (platform.cartridgeType) {
@@ -61,7 +88,12 @@ export function GameCarousel({
   const curr = games[currentIndex];
 
   return (
-    <section className="stage" aria-label={`${platform.name} games`}>
+    <section
+      className="stage"
+      aria-label={`${platform.name} games`}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       {/* The cartridge wheel */}
       <div className="wheel">
         {slots.map(({ offset, idx, game }) => {
