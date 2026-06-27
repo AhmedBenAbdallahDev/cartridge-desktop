@@ -107,7 +107,7 @@ button:focus-visible {
 button:active { transform: translateY(0.18cqh); }
 
 /* =============================================================
-   APP SHELL — adaptive viewport (fills any screen)
+   APP SHELL — 16:9 console screen (scales to any viewport)
    ============================================================= */
 .app-shell {
   width: 100vw;
@@ -120,8 +120,9 @@ button:active { transform: translateY(0.18cqh); }
 }
 .screen {
   position: relative;
-  width: 100vw;
-  height: 100dvh;
+  aspect-ratio: 16 / 9;
+  width: min(100vw, calc(100dvh * 16 / 9));
+  height: min(100dvh, calc(100vw * 9 / 16));
   background: var(--paper);
   overflow: hidden;
   container-type: size;
@@ -130,20 +131,6 @@ button:active { transform: translateY(0.18cqh); }
   box-shadow:
     inset 0 0 0 0.1cqw rgba(0,0,0,0.15),
     inset 0 0 8cqw rgba(0,0,0,0.25);
-}
-/* Landscape-oriented screens: keep the 16:9 box with letterboxing */
-@media (min-aspect-ratio: 16/9) {
-  .screen {
-    width: 100dvw;
-    height: calc(100dvw * 9 / 16);
-  }
-}
-/* Portrait / narrow screens: fill width, use available height */
-@media (max-aspect-ratio: 9/16) {
-  .screen {
-    width: 100dvw;
-    height: 100dvh;
-  }
 }
 
 /* wallpaper: Nintendo eggshell dot grid */
