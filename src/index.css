@@ -2,6 +2,18 @@
 @import "tailwindcss";
 
 /* =============================================================
+   FONTENDO PIXEL — open-source Nintendo-style pixel font
+   Used as the primary UI font for the handheld console aesthetic.
+   ============================================================= */
+@font-face {
+  font-family: "FontendoPixel";
+  src: url("./fonts/fontendo-pixel.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =============================================================
    NINTENDO-STYLE DESIGN TOKENS
    All corner radii follow the Switch convention:
      • raised elements: top radius > bottom radius (they sit proud)
@@ -9,7 +21,7 @@
      • panel cards: larger radius, top corners slightly larger
    ============================================================= */
 :root {
-  --font: "VT323", "Press Start 2P", "Courier New", monospace;
+  --font: "FontendoPixel", "VT323", "Press Start 2P", "Courier New", monospace;
 
   /* wallpaper */
   --paper: #c9c9c0;
@@ -158,7 +170,7 @@ button:active { transform: translateY(0.18cqh); }
 .top-hud {
   position: absolute;
   inset: 1.4cqh 1.2cqw auto 1.2cqw;
-  height: 4.6cqh;
+  height: 6.0cqh;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -170,12 +182,12 @@ button:active { transform: translateY(0.18cqh); }
 .chip {
   display: inline-flex;
   align-items: center;
-  height: 4.5cqh;
-  padding: 0 1cqw;
+  height: 6.0cqh;
+  padding: 0 1.2cqw;
   background: rgba(20,20,20,0.88);
   color: white;
   font-family: var(--font);
-  font-size: 2.1cqh;
+  font-size: 3.5cqh;
   line-height: 1;
   border-radius: 0.7cqw 0.7cqw 0.35cqw 0.35cqw;
   letter-spacing: 0.1cqw;
@@ -187,7 +199,13 @@ button:active { transform: translateY(0.18cqh); }
   justify-content: center;
   font-variant-numeric: tabular-nums;
 }
-.chip--battery { gap: 0.5cqw; }
+.chip--battery { gap: 0.6cqw; }
+.chip__icon {
+  width: 4.2cqh;
+  height: 4.2cqh;
+  flex: 0 0 auto;
+}
+.chip__icon--battery { margin-left: 0.1cqw; }
 
 /* platform switch (L / pill / R) */
 .platform-switch {
@@ -205,8 +223,8 @@ button:active { transform: translateY(0.18cqh); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 4.5cqh;
-  width: 4.5cqh;
+  height: 6.0cqh;
+  width: 6.0cqh;
   background: #fafaf5;
   color: var(--ink);
   border-radius: 0.7cqw 0.7cqw 0.35cqw 0.35cqw;
@@ -219,7 +237,7 @@ button:active { transform: translateY(0.18cqh); }
 }
 .shoulder__key {
   font-family: var(--font);
-  font-size: 2.2cqh;
+  font-size: 3.8cqh;
   line-height: 1;
   font-weight: 700;
 }
@@ -227,15 +245,15 @@ button:active { transform: translateY(0.18cqh); }
 /* platform name pill between shoulders — full capsule */
 .platform-pill {
   position: relative;
-  height: 4.5cqh;
-  min-width: 22cqw;
-  padding: 0 1.4cqw;
+  height: 6.0cqh;
+  min-width: 28cqw;
+  padding: 0 1.8cqw;
   display: grid;
   place-items: center;
   background: #fafaf5;
   color: var(--ink);
   font-family: var(--font);
-  font-size: 2.4cqh;
+  font-size: 4.0cqh;
   letter-spacing: 0.14cqw;
   border-radius: var(--r-pill);
   box-shadow: var(--bevel-raised);
@@ -295,31 +313,31 @@ button:active { transform: translateY(0.18cqh); }
   place-items: center;
   z-index: 6;
   width: 70cqw;
-  height: 10cqh;
+  height: 14cqh;
   pointer-events: none;
 }
 .game-info__inner {
   position: absolute;
   display: grid;
   place-items: center;
-  gap: 0.9cqh;
+  gap: 1.2cqh;
   pointer-events: auto;
 }
 .game-name-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.7cqw;
-  height: 5cqh;
-  padding: 0 1.6cqw 0 0.5cqw;
+  gap: 0.9cqw;
+  height: 6.5cqh;
+  padding: 0 2cqw 0 0.6cqw;
   background: rgba(250,250,245,0.96);
   color: var(--ink);
   border-radius: var(--r-pill);
   font-family: var(--font);
-  font-size: 2.9cqh;
+  font-size: 4.8cqh;
   letter-spacing: 0.08cqw;
   box-shadow: var(--bevel-raised-soft);
   white-space: nowrap;
-  max-width: 55cqw;
+  max-width: 58cqw;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -329,15 +347,15 @@ button:active { transform: translateY(0.18cqh); }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 48cqw;
+  max-width: 50cqw;
 }
 .playtime {
   color: var(--ink-mute);
   font-family: var(--font);
-  font-size: 2.2cqh;
+  font-size: 3.8cqh;
   letter-spacing: 0.25cqw;
   background: rgba(255,255,255,0.4);
-  padding: 0.15cqh 1cqw;
+  padding: 0.2cqh 1.2cqw;
   border-radius: var(--r-pill);
 }
 
@@ -353,14 +371,14 @@ button:active { transform: translateY(0.18cqh); }
   pointer-events: none;
 }
 .page-dot {
-  width: 0.9cqw;
-  height: 0.9cqw;
+  width: 1.2cqw;
+  height: 1.2cqw;
   border-radius: 50%;
   background: rgba(0,0,0,0.22);
   transition: all 240ms cubic-bezier(.2,.7,.3,1.2);
 }
 .page-dot.is-active {
-  width: 2.6cqw;
+  width: 3.2cqw;
   border-radius: var(--r-pill);
   background: rgba(0,0,0,0.55);
 }
@@ -383,15 +401,15 @@ button:active { transform: translateY(0.18cqh); }
 .bhint {
   display: inline-flex;
   align-items: center;
-  gap: 0.55cqw;
-  height: 4.4cqh;
-  padding: 0 1.1cqw 0 0.4cqw;
+  gap: 0.7cqw;
+  height: 5.8cqh;
+  padding: 0 1.4cqw 0 0.5cqw;
   background: rgba(246,246,239,0.78);
   backdrop-filter: blur(0.4cqw);
   color: var(--ink);
   border-radius: var(--r-pill);
   font-family: var(--font);
-  font-size: 2.1cqh;
+  font-size: 3.5cqh;
   letter-spacing: 0.06cqw;
   box-shadow: 0 0.2cqh 0.3cqh rgba(0,0,0,0.14);
   transition: background 120ms ease;
@@ -404,15 +422,15 @@ button:active { transform: translateY(0.18cqh); }
 
 /* face-buttons (A / B / X / Y) — solid black circles in the UI chrome */
 .face-btn {
-  width: 3.1cqh;
-  height: 3.1cqh;
+  width: 4.2cqh;
+  height: 4.2cqh;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: #0c0c0c;
   color: #fff;
   font-family: var(--font);
-  font-size: 1.8cqh;
+  font-size: 3.2cqh;
   font-weight: 700;
   line-height: 1;
   flex: 0 0 auto;
@@ -436,11 +454,11 @@ button:active { transform: translateY(0.18cqh); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5cqw;
-  height: 5cqh;
-  padding: 0 1.2cqw;
+  gap: 0.6cqw;
+  height: 6.5cqh;
+  padding: 0 1.5cqw;
   font-family: var(--font);
-  font-size: 2.3cqh;
+  font-size: 3.1cqh;
   letter-spacing: 0.06cqw;
   color: var(--ink);
   border-radius: 0.8cqw 0.8cqw 0.45cqw 0.45cqw;
@@ -449,7 +467,7 @@ button:active { transform: translateY(0.18cqh); }
 }
 .btn:active { box-shadow: var(--bevel-pressed); }
 .btn__ico {
-  width: 2.4cqh; height: 2.4cqh;
+  width: 3.2cqh; height: 3.2cqh;
   display: grid; place-items: center;
 }
 .btn--blue   { --accent-d: var(--blue-d);   background: var(--blue);   color: #05243a; }
@@ -462,13 +480,13 @@ button:active { transform: translateY(0.18cqh); }
 
 /* Big full-width footer buttons */
 .foot-btn {
-  height: 6.4cqh;
+  height: 8.2cqh;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6cqw;
+  gap: 0.7cqw;
   font-family: var(--font);
-  font-size: 2.4cqh;
+  font-size: 3.2cqh;
   letter-spacing: 0.08cqw;
   border-radius: 0.9cqw 0.9cqw 0.5cqw 0.5cqw;
   color: #fff;
@@ -565,13 +583,13 @@ button:active { transform: translateY(0.18cqh); }
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.8cqw;
+  gap: 1cqw;
   width: 100%;
-  height: 5.4cqh;
-  padding: 0 1cqw;
+  height: 7.0cqh;
+  padding: 0 1.2cqw;
   border-radius: var(--r-pill);
   font-family: var(--font);
-  font-size: 2.3cqh;
+  font-size: 3.1cqh;
   color: var(--ink-soft);
   background: transparent;
   text-align: left;
@@ -598,7 +616,7 @@ button:active { transform: translateY(0.18cqh); }
 }
 .nav-item--donate .nav-item__bg { display: none; }
 .nav-icon {
-  width: 2.8cqh; height: 2.8cqh;
+  width: 3.8cqh; height: 3.8cqh;
   display: grid; place-items: center;
   flex: 0 0 auto;
 }
@@ -629,17 +647,17 @@ button:active { transform: translateY(0.18cqh); }
   font-family: var(--font);
 }
 .panel-title__top {
-  display: flex; align-items: center; gap: 0.55cqw;
-  font-size: 2.6cqh;
+  display: flex; align-items: center; gap: 0.7cqw;
+  font-size: 3.5cqh;
   letter-spacing: 0.1cqw;
   color: var(--ink);
 }
 .panel-title__paths {
-  display: flex; flex-direction: column; gap: 0.15cqh;
-  font-size: 1.6cqh;
+  display: flex; flex-direction: column; gap: 0.2cqh;
+  font-size: 2.2cqh;
   color: var(--ink-mute);
   letter-spacing: 0.04cqw;
-  padding-left: 3.4cqw;
+  padding-left: 4.4cqw;
 }
 .panel-actions { display: flex; gap: 0.7cqw; }
 
@@ -653,12 +671,12 @@ button:active { transform: translateY(0.18cqh); }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 6.6cqh;
-  padding: 0 1.3cqw;
+  height: 8.5cqh;
+  padding: 0 1.6cqw;
   background: var(--surface-muted);
   border-radius: 0.9cqw 0.9cqw 0.5cqw 0.5cqw;
   font-family: var(--font);
-  font-size: 2.5cqh;
+  font-size: 3.4cqh;
   color: var(--ink);
   letter-spacing: 0.08cqw;
   box-shadow:
@@ -672,12 +690,12 @@ button:active { transform: translateY(0.18cqh); }
 .toggle-pill {
   display: grid;
   place-items: center;
-  min-width: 6.2cqh;
-  height: 4.2cqh;
-  padding: 0 0.9cqw;
+  min-width: 8cqh;
+  height: 5.6cqh;
+  padding: 0 1.2cqw;
   border-radius: 0.6cqw 0.6cqw 0.3cqw 0.3cqw;
   font-family: var(--font);
-  font-size: 2.1cqh;
+  font-size: 2.9cqh;
   letter-spacing: 0.08cqw;
   color: #fff;
   box-shadow:
@@ -730,7 +748,7 @@ button:active { transform: translateY(0.18cqh); }
 .cust-head {
   display: flex; justify-content: flex-end; align-items: center;
   font-family: var(--font);
-  font-size: 3cqh;
+  font-size: 4.0cqh;
   letter-spacing: 0.12cqw;
   color: var(--ink);
 }
@@ -740,12 +758,12 @@ button:active { transform: translateY(0.18cqh); }
   gap: 0.8cqw;
 }
 .cust-num {
-  height: 7.5cqh;
+  height: 9.5cqh;
   background: #b3b3aa;
   border-radius: 0.7cqw 0.7cqw 0.35cqw 0.35cqw;
   display: grid; place-items: center;
   font-family: var(--font);
-  font-size: 3.6cqh;
+  font-size: 4.8cqh;
   color: #404038;
   box-shadow:
     inset 0 -0.4cqh 0 rgba(0,0,0,0.18),
@@ -754,15 +772,15 @@ button:active { transform: translateY(0.18cqh); }
 .cust-field { display: flex; flex-direction: column; gap: 0.5cqh; }
 .cust-field > label {
   font-family: var(--font);
-  font-size: 2.4cqh;
+  font-size: 3.2cqh;
   letter-spacing: 0.08cqw;
   color: var(--ink);
 }
 .cust-row { display: flex; gap: 0.7cqw; align-items: center; }
 
 .cust-arrow {
-  width: 5.2cqh;
-  height: 6.2cqh;
+  width: 6.5cqh;
+  height: 8.0cqh;
   background: #0c0c0c;
   border-radius: 0.7cqw 0.7cqw 0.35cqw 0.35cqw;
   display: grid; place-items: center;
@@ -777,7 +795,7 @@ button:active { transform: translateY(0.18cqh); }
 .cust-track {
   flex: 1;
   position: relative;
-  height: 6.2cqh;
+  height: 8.0cqh;
   border-radius: 0.7cqw 0.7cqw 0.35cqw 0.35cqw;
   background: #fafaf4;
   box-shadow:
@@ -810,7 +828,7 @@ button:active { transform: translateY(0.18cqh); }
   right: 1cqw; top: 50%;
   transform: translateY(-50%);
   font-family: var(--font);
-  font-size: 2.8cqh;
+  font-size: 3.8cqh;
   color: var(--ink);
   letter-spacing: 0.06cqw;
   font-variant-numeric: tabular-nums;
@@ -824,13 +842,13 @@ button:active { transform: translateY(0.18cqh); }
 .cust-set {
   margin-top: auto;
   display: flex; align-items: center; justify-content: center;
-  gap: 1cqw;
-  height: 7.4cqh;
+  gap: 1.2cqw;
+  height: 9.5cqh;
   background: var(--yellow);
   color: #321f00;
   border-radius: 0.9cqw 0.9cqw 0.5cqw 0.5cqw;
   font-family: var(--font);
-  font-size: 2.8cqh;
+  font-size: 3.8cqh;
   letter-spacing: 0.1cqw;
   box-shadow:
     inset 0 -0.4cqh 0 var(--yellow-d),
@@ -852,18 +870,18 @@ button:active { transform: translateY(0.18cqh); }
   height: 100%;
 }
 .panel-title__ico {
-  width: 3cqh; height: 3cqh;
+  width: 4cqh; height: 4cqh;
   display: grid; place-items: center;
   flex: 0 0 auto;
 }
 .panel-copy {
   font-family: var(--font);
-  font-size: 2.3cqh;
+  font-size: 3.1cqh;
   line-height: 1.5;
   color: var(--ink-soft);
 }
-.panel-copy p { margin: 0 0 0.6cqh; }
-.foot-ico { width: 2.6cqh; height: 2.6cqh; display: grid; place-items: center; }
+.panel-copy p { margin: 0 0 0.8cqh; }
+.foot-ico { width: 3.4cqh; height: 3.4cqh; display: grid; place-items: center; }
 
 /* =============================================================
    CUSTOMIZE TRACK FILL
@@ -906,13 +924,13 @@ button:active { transform: translateY(0.18cqh); }
 }
 .launch-flash__label {
   font-family: var(--font);
-  font-size: 2.4cqh;
+  font-size: 3.2cqh;
   letter-spacing: 0.7cqw;
   color: var(--green);
 }
 .launch-flash__name {
   font-family: var(--font);
-  font-size: 5cqh;
+  font-size: 6.5cqh;
   letter-spacing: 0.1cqw;
   color: #fff;
   text-shadow: 0 0.3cqh 1cqh rgba(0,0,0,0.5);

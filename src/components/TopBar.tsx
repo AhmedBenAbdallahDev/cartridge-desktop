@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { IcoBattery, IcoWifi } from './Icons';
 
 interface TopBarProps {
   time: string;
@@ -60,8 +61,9 @@ export function TopBar({ time, battery, platformName, platformDir, onLPress, onR
       </div>
 
       <div className="chip chip--battery">
+        <IcoWifi className="chip__icon" />
         <span>{battery}%</span>
-        <span className="chip__wifi" aria-hidden />
+        <IcoBattery className="chip__icon chip__icon--battery" />
       </div>
     </header>
   );

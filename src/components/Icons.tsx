@@ -133,3 +133,20 @@ export const IcoGear = ({ className }: IconProps) => (
     <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3h0a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8v0a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" />
   </svg>
 );
+
+export const IcoBattery = ({ className }: IconProps) => (
+  <svg viewBox="0 0 24 18" className={className} fill="currentColor">
+    <rect x="0.5" y="2" width="20" height="14" rx="2.5" ry="2.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+    <rect x="21.5" y="6" width="2" height="6" rx="1" fill="currentColor" opacity="0.5" />
+    <rect x="2.5" y="4" width="14" height="10" rx="1.2" fill="currentColor" opacity="0.85" />
+  </svg>
+);
+
+export const IcoWifi = ({ className }: IconProps) => (
+  <svg viewBox="0 0 24 20" className={className} fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2 6.5C5.5 3 9.5 1.5 12 1.5s6.5 1.5 10 5" opacity="0.35" />
+    <path d="M5 10c2-2.2 4.5-3.2 7-3.2s5 1 7 3.2" opacity="0.55" />
+    <path d="M8.5 13.5c1.2-1.3 2.4-1.9 3.5-1.9s2.3.6 3.5 1.9" opacity="0.8" />
+    <circle cx="12" cy="17" r="1.5" fill="currentColor" stroke="none" />
+  </svg>
+);
