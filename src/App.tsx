@@ -6,6 +6,8 @@ import { BottomBar } from './components/BottomBar';
 import { CustomizePanel } from './components/CustomizePanel';
 import { SettingsPanel } from './components/SettingsPanel';
 import { LaunchFlash } from './components/LaunchFlash';
+import { DebugPanel } from './components/DebugPanel';           // [DEBUG]
+import { useDebugToggle } from './utils/debugSystem';          // [DEBUG]
 import type { Platform } from './types';
 
 const platforms: Platform[] = [
@@ -61,6 +63,7 @@ export default function App() {
   const [time, setTime] = useState(() => fmtTime(new Date()));
   const [battery] = useState(78);
   const lock = useRef(false);
+  const debug = useDebugToggle();                                // [DEBUG]
 
   useEffect(() => {
     const id = setInterval(() => setTime(fmtTime(new Date())), 1000 * 20);
@@ -101,6 +104,18 @@ export default function App() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (launching) return;
+      // [DEBUG] H key toggles debug mode — check first
+      if (e.key === 'h' || e.key === 'H') {
+        if ((e.target as HTMLElement)?.tagName === 'INPUT') return;
+        debug.toggle();
+        return;
+      }
+      // [DEBUG] J/K only work when debug is active
+      if (debug.active) {
+        if ((e.target as HTMLElement)?.tagName === 'INPUT') return;
+        if (e.key === 'j' || e.key === 'J') { debug.togglePanel(); return; }
+        if (e.key === 'k' || e.key === 'K') { debug.toggleRef(); return; }
+      }
       if (showSettings || showCustomize) {
         if (e.key === 'Escape') { setShowSettings(false); setShowCustomize(false); }
         return;
@@ -119,12 +134,20 @@ export default function App() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [prevGame, nextGame, cyclePlatform, launch, showSettings, showCustomize, launching]);
+  }, [prevGame, nextGame, cyclePlatform, launch, showSettings, showCustomize, launching, debug]);
 
   return (
     <div className="app-shell">
       <div className="screen" data-platform={platform.id}>
         <Wallpaper platformId={platform.id} />
+
+        {/* [DEBUG] Mode indicator badge */}
+        {debug.active && (
+          <div className="debug-badge">
+            <span>DEBUG</span>
+            <span className="debug-badge__keys">H toggle · J panel · K overlay</span>
+          </div>
+        )}
 
         {/* Top bar slides down on mount */}
         <motion.div
@@ -193,6 +216,25 @@ export default function App() {
 
         <AnimatePresence>
           {launching && <LaunchFlash key="flash" name={platform.games[gIdx].name} />}
+        </AnimatePresence>
+
+        {/* [DEBUG] Reference image overlay — toggled with K when debug is active */}
+        {debug.active && debug.showRef && (
+          <div className="debug-overlay-root">
+            <img
+              src="/reference.png"
+              alt="Reference overlay"
+              className="debug-ref-image"
+              draggable={false}
+            />
+          </div>
+        )}
+
+        {/* [DEBUG] Debug panel — toggled with J when debug is active */}
+        <AnimatePresence>
+          {debug.active && debug.showPanel && (
+            <DebugPanel key="debug" onClose={debug.togglePanel} />
+          )}
         </AnimatePresence>
       </div>
     </div>
